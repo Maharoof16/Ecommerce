@@ -147,23 +147,27 @@ main h1{
     overflow: hidden;
 }
 
-.page {
-    display: none;
-    padding: 10px;
-}
-
 .GoToCart{
     width: 100%;
 }
 
 .Cart-Container{
-    width: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 .cart-Card{
     width: 400px;
     height: 200px;
     display: flex;
 }
+
+.page {
+    display: none;
+    padding: 10px;
+}
+
 #Home, #Products, #Specific-Details,#GoToCart{
     display: none; /* Default hidden, managed by JavaScript */
 }
