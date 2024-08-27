@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideshow = document.getElementById('slideshow');
     const specificProductDetailsContainer = document.getElementById('Specific-Product-Details');
     let allProducts = [];
-
+    const cart=[] || JSON.parse(localStorage.getItem('cart'));
     // Fetch data once
     fetch(apiURL)
         .then(response => response.json())
@@ -35,18 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
             homeProductContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
+                }else if(e.target.classList.contains('add-to-cart-btn')){
+                    handleAddToCart(e.target);
                 }
             });
 
             productsContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
+                }else if(e.target.classList.contains('add-to-cart-btn')){
+                    handleAddToCart(e.target);
                 }
             });
 
             slideshow.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
+                }else if(e.target.classList.contains('add-to-cart-btn')){
+                    handleAddToCart(e.target);
                 }
             });
 
@@ -66,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h2>${product.title}</h2>
                 <p class="description">${product.description}</p>
                 <h3 class="price">$${product.price}</h3>
-                <button class="add-to-cart-btn">Add to cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
             </div>
         `;
@@ -80,9 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${product.image}" alt="${product.title}" width="300px">
             <div class="slider-details">
                 <h2>${product.title}</h2>
-                <p class="description">${product.description}</p>
-                <h3 class="price">$${product.price}</h3>
-                <button class="add-to-cart-btn">Add to cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
             </div>
         `;
@@ -115,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h2 class="price">$${product.price}</h2>
                 <p class="description">${product.description}</p>
                 <div class="cart-buttons">
-                    <button>Add to cart</button>
+                    <button class="add-to-cart-btn" data-id="${product.id}>Add to cart</button>
                     <button>Go to cart</button>
                 </div>
             </div>
@@ -135,6 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showSection('Specific-Details');
         }
+    }
+    
+    function handleAddToCart(button){
+        const ProductID=button.dataset.id;
+        const Product=allProducts.find(product=> product.id==ProductID);
+
+        if(Product){
+            const Existing =cart.find(product=>product.id==ProductID);
+
+            if(Existing){
+                Existing.quantity++;
+            }else{
+                Product.quantity=1;
+                cart.push(Product);
+            }
+        }localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     function filterProducts(category) {
@@ -163,4 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsSection.style.display = 'block';
         }
     }
+
+    
 });

@@ -12,13 +12,19 @@ body {
 }
 
 header{
+    width: 100%;
     display: flex;
     justify-content: space-around;
+    position: fixed;
+    top: 20px;
+    left: 0px;
+
 }
 
 a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 
 .nav-tags a{
@@ -117,19 +123,33 @@ main h1{
     display: flex;
 }
 
-.page {
-    display: none;
-    padding: 10px;
-}
-
 #slideshow {
     display: flex;
     width: 100%;
+    justify-content: space-between;
 }
 
 #slideshow img{
     max-width: 100%;
     height: 200px;
+}
+
+.slider-card{
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+}
+
+.slider-details h2{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    padding: 10px;
 }
 
 #Home, #Products, #Specific-Details {
