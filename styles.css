@@ -152,6 +152,18 @@ main h1{
     padding: 10px;
 }
 
-#Home, #Products, #Specific-Details, #GoToCart{
+.GoToCart{
+    width: 100%;
+}
+
+.Cart-Container{
+    width: 100%;
+}
+.cart-Card{
+    width: 400px;
+    height: 200px;
+    display: flex;
+}
+#Home, #Products, #Specific-Details,#GoToCart{
     display: none; /* Default hidden, managed by JavaScript */
 }

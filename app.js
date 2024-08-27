@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const specificProductDetailsContainer = document.getElementById('Specific-Product-Details');
     let allProducts = [];
     const cart=JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContainer=document.getElementById('Cart-Container');
+    const emptyCart=document.getElementById('EmptyCart');
+
+    displayCartProducts();
     // Fetch data once
     fetch(apiURL)
         .then(response => response.json())
@@ -73,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h2>${product.title}</h2>
                 <p class="description">${product.description}</p>
                 <h3 class="price">$${product.price}</h3>
-                <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" >Add to cart</button>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
             </div>
         `;
@@ -87,11 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${product.image}" alt="${product.title}" width="300px">
             <div class="slider-details">
                 <h2>${product.title}</h2>
-                <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" > Add to cart</button>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
             </div>
         `;
         return card;
+    }
+
+    function createCartCard(product){
+        const cartItem=document.createElement('div');
+        cartItem.classList.add('Cart-Card');
+        cartItem.innerHTML=`
+        <img src="${product.image}" alt="${product.title}" width="150px">
+        <p>${product.quantity}x${product.price}</p>
+        `;
+        return cartItem
     }
 
     function displayProducts(products, container) {
@@ -110,6 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function displayCartProducts(){
+        cartContainer.innerHTML= '';
+        if (cart.length === 0){
+            emptyCart.style.display='block';
+        }else{
+            emptyCart.style.display='none';
+            cart.forEach(product=>{
+                const cartCard=createCartCard(product);
+                cartContainer.appendChild(cartCard);
+            });
+        }
+        
+    }
+ 
+    
+
     function displayProductDetails(product) {
         specificProductDetailsContainer.innerHTML = `
             <img src="${product.image}" alt="${product.title}" width="500px">
@@ -120,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h2 class="price">$${product.price}</h2>
                 <p class="description">${product.description}</p>
                 <div class="cart-buttons">
-                    <button class="add-to-cart-btn" data-id="${product.id}>Add to cart</button>
+                    <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
                     <button>Go to cart</button>
                 </div>
             </div>
@@ -158,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }localStorage.setItem('cart', JSON.stringify(cart));
 
         updateCartCount();
+        displayCartProducts();
         
     }
 
@@ -192,8 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
             productsSection.style.display = 'block';
         } else if (target === 'Specific-Details') {
             detailsSection.style.display = 'block';
-        }else if(target=== 'GoToCart'){
-            cartSection.style.display='block';
+        }else if (target === 'GoToCart') {
+            cartSection.style.display = 'block';
         }
     }
 

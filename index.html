@@ -20,7 +20,7 @@
         <div class="nav-icons">
             <a><i class="fa-solid fa-right-to-bracket"></i> Login</a>
             <a><i class="fa-solid fa-user-plus"></i> Register</a>
-            <a id="Cart" data-target="GoToCart" class="pagebuttons"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
+            <a id="Cart" class="pagebuttons" data-target="GoToCart"><i class="fa-solid fa-cart-shopping"></i> Cart (0)</a>
         </div>
     </header>
     
@@ -58,8 +58,13 @@
         </div>
 
         <div id="GoToCart" class="page">
-            <div></div>
+            <div id="EmptyCart">
+                <h1>Cart</h1>
+                <h2>Your Cart is Empty</h2>
+            </div>
+            <div id="Cart-Container"></div>
         </div>
+        
     </main>
     
     
