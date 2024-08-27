@@ -1,0 +1,42 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Cards</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h2>Ecommerce</h2>
+        <div class="nav-tags">
+            <a class="pagebuttons" data-target="Products" >Home</a>
+            <a class="pagebuttons" data-target="Products" >Products</a>
+            <a >About</a>
+            <a >Contact</a>
+        </div>
+        <div class="nav-icons">
+            <a ><span><i class="fa-solid fa-right-to-bracket"></i> Login</span></a>
+            <a><span><i class="fa-solid fa-user-plus"></i> Register</span></a>
+            <a><span><i class="fa-solid fa-cart-shopping"></i> Cart (0)</span></a>
+        </div>
+    </header>
+
+    <div id="Products" class="page" data-display="block">
+        <div class="Category-Buttons">
+            <button data-category="All">All</button>
+            <button data-category="men's clothing">Men's Clothing</button>
+            <button data-category="women's clothing">Women's Clothing</button>
+            <button data-category="jewelery">Jewelery</button>
+            <button data-category="electronics">Electronics</button>
+        </div>
+        <div id="Product-Container" ></div>
+    </div>
+    <div id="Specific-Product-Details" class="page" data-display="flex"></div>
+    
+    
+    <script src="./app.js"></script>
+</body>
+</html>
