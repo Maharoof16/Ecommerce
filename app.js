@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cart.push(Product);
             }
         }localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('Cart').innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`
     }
 
     function filterProducts(category) {
@@ -184,5 +185,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
+
 });
