@@ -152,6 +152,6 @@ main h1{
     padding: 10px;
 }
 
-#Home, #Products, #Specific-Details {
+#Home, #Products, #Specific-Details, #GoToCart{
     display: none; /* Default hidden, managed by JavaScript */
 }

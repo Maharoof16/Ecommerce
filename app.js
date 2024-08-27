@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeSection = document.getElementById('Home');
     const productsSection = document.getElementById('Products');
     const detailsSection = document.getElementById('Specific-Details');
+    const cartSection=document.getElementById('GoToCart');
     const homeProductContainer = document.getElementById('Home-Product-Container');
     const productsContainer = document.getElementById('Products-Container');
     const slideshow = document.getElementById('slideshow');
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Set up event listeners for navigation buttons
-            document.querySelectorAll('.nav-tags .pagebuttons').forEach(button => {
+            document.querySelectorAll('.pagebuttons').forEach(button => {
                 button.addEventListener('click', (e) => {
                     showSection(e.target.dataset.target);
                 });
@@ -183,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         homeSection.style.display = 'none';
         productsSection.style.display = 'none';
         detailsSection.style.display = 'none';
+        cartSection.style.display='none';
 
         if (target === 'Home') {
             homeSection.style.display = 'block';
@@ -190,6 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
             productsSection.style.display = 'block';
         } else if (target === 'Specific-Details') {
             detailsSection.style.display = 'block';
+        }else if(target=== 'GoToCart'){
+            cartSection.style.display='block';
         }
     }
 
