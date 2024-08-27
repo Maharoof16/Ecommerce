@@ -1,164 +1,166 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Example API URL (Replace with your actual API endpoint)
     const apiURL = 'https://fakestoreapi.com/products/';
-    const productContainer = document.getElementById('Product-Container');
-    const productDetailsContainer = document.getElementById('Specific-Product-Details');
-    let allProducts=[];
-    const slideshow=document.getElementById('slideshow');
-    
-   
+    const homeSection = document.getElementById('Home');
+    const productsSection = document.getElementById('Products');
+    const detailsSection = document.getElementById('Specific-Details');
+    const homeProductContainer = document.getElementById('Home-Product-Container');
+    const productsContainer = document.getElementById('Products-Container');
+    const slideshow = document.getElementById('slideshow');
+    const specificProductDetailsContainer = document.getElementById('Specific-Product-Details');
+    let allProducts = [];
+
+    // Fetch data once
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
-            allProducts=data;
-            displayproducts(allProducts);
-            const categorybuttons= document.querySelectorAll('.Category-Buttons');
-            categorybuttons.forEach(button=>{
-                button.addEventListener('click',(e)=>{
-                    filterproducts(e.target.dataset.category)
-                })
-            })
-            const pagebuttons=document.querySelectorAll(".pagebuttons");
-            console.log(pagebuttons)
-            const sections=document.querySelectorAll(".page");
-            pagebuttons.forEach(button=>{
-                button.addEventListener('click',(e)=>{
-                    const target=e.target.dataset.target;
-                    sections.forEach(section=>{
-                        section.style.display='none';
-                    })
-                    document.getElementById(target).style.display = document.getElementById(target).dataset.display || 'block';
-                });
-                if (sections.length > 0) {
-                    sections[0].style.display = 'block';
-                }
-            })
+            allProducts = data;
+            displayProducts(allProducts, homeProductContainer); // Display on Home page
+            displayProducts(allProducts, productsContainer); // Display on Products page
 
-            // Event delegation for dynamically added buttons
-            productContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('details-btn')) {
-                handleDetailsButtonClick(e.target);
+            // Set up event listeners for category buttons
+            document.querySelectorAll('.Category-Buttons button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    filterProducts(e.target.dataset.category);
+                });
+            });
+
+            // Set up event listeners for navigation buttons
+            document.querySelectorAll('.nav-tags .pagebuttons').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    showSection(e.target.dataset.target);
+                });
+            });
+
+            // Event delegation for product containers
+            homeProductContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('details-btn')) {
+                    handleDetailsButtonClick(e.target);
                 }
             });
-            
+
+            productsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('details-btn')) {
+                    handleDetailsButtonClick(e.target);
+                }
+            });
+
             slideshow.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
                 }
             });
+
+            // Initialize default view
+            showSection('Home');
         })
         .catch(error => {
             console.error('Error fetching product data:', error);
         });
 
-
-function createProductCard(product) {
-    const card = document.createElement('div');
-    card.classList.add('Product-Card');
-
-    card.innerHTML = `
-        <img src="${product.image}" alt="${product.title}"  width="300px">
-        <div class="Product-Details">
-            <h2>${product.title}</h2>
-            <p class="description">${product.description}</p>
-            <h3 class="price">$${product.price}</h3>
-            <button class="Addtocart-btn">Add to cart </button>
-            <button class="details-btn pagebuttons" data-target="Specific-Product-Details" data-id="${product.id}" data-category="${product.category}">Details</button>
-        </div>
-        
-    `;
-    return card;
-}
-
-
-function displayproducts(products){
-    productContainer.innerHTML="";
-    products.forEach(product=>{
-        const productCard = createProductCard(product);
-        productContainer.appendChild(productCard);
-    })
-    
-}
-
-function fetchproductdetails(productId) {
-    fetch(`${apiURL}${productId}`)
-        .then(response => response.json())
-        .then(product => {
-            console.log(product)
-            displayProductDetails(product);
-        })
-        .catch(error => {
-            console.error('Error fetching product details:', error);
-        });
-}
-
-function displayProductDetails(product) {
-    productDetailsContainer.innerHTML = `
-        <img src="${product.image}" alt="${product.title}">
-        <div class="productdescription">
-            <h3 class="category">${product.category}</h3>
-            <h1>${product.title}</h1>
-            <p>${product.rating.rate}</p>
-            <h2 class="price">$${product.price}</h2>
-            <p class="description">${product.description}</p>
-            <div class="cartbuttons">
-                <button>Add to cart</button>
-                <button>Go to cart</button>
+    function createProductCard(product) {
+        const card = document.createElement('div');
+        card.classList.add('product-card'); // Different class for product cards
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.title}" width="300px">
+            <div class="product-details">
+                <h2>${product.title}</h2>
+                <p class="description">${product.description}</p>
+                <h3 class="price">$${product.price}</h3>
+                <button class="add-to-cart-btn">Add to cart</button>
+                <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
             </div>
-        </div>
-    `;
-}
-
-
-function filterproducts(category){
-    if(category=="All"){
-        displayproducts(allProducts); // Show all products
-    } else {
-            const filteredProducts = allProducts.filter(product => product.category === category);
-            console.log(filteredProducts)
-            displayproducts(filteredProducts); // Show filtered products
+        `;
+        return card;
     }
-}
 
-function filtercategory(category){
-    const categoryproducts=allProducts.filter(product => product.category === category);
-    console.log(categoryproducts)
-    displaycategoryproducts(categoryproducts)
-}
+    function createSliderCard(product) {
+        const card = document.createElement('div');
+        card.classList.add('slider-card'); // Different class for slider cards
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.title}" width="300px">
+            <div class="slider-details">
+                <h2>${product.title}</h2>
+                <p class="description">${product.description}</p>
+                <h3 class="price">$${product.price}</h3>
+                <button class="add-to-cart-btn">Add to cart</button>
+                <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
+            </div>
+        `;
+        return card;
+    }
 
-function displaycategoryproducts(products){
-    slideshow.innerHTML="";
-    products.forEach(product=>{
-        const sliderCard = createsliderCard(product);
-        console.log(sliderCard)
-        slideshow.appendChild(sliderCard);
-    })
-}
+    function displayProducts(products, container) {
+        container.innerHTML = '';
+        products.forEach(product => {
+            const productCard = createProductCard(product);
+            container.appendChild(productCard);
+        });
+    }
 
-function createsliderCard(product){
-    const categorycard=document.createElement('div');
-    categorycard.innerHTML=`
-        <img src="${product.image}" alt="${product.title}"  width="300px">
-        <div>
-            <h2>${product.title}</h2>
-            <p class="description">${product.description}</p>
-            <h3 class="price">$${product.price}</h3>
-            <button class="Addtocart-btn">Add to cart </button>
-            <button class="details-btn pagebuttons" data-target="Specific-Product-Details" data-id="${product.id}" data-category="${product.category}">Details</button>
-        </div>
-    
-    `;
-    return categorycard
-}
+    function displayCategoryProducts(products) {
+        slideshow.innerHTML = '';
+        products.forEach(product => {
+            const sliderCard = createSliderCard(product);
+            slideshow.appendChild(sliderCard);
+        });
+    }
 
-function handleDetailsButtonClick(button) {
-    const productID = button.dataset.id;
-    const category = button.dataset.category;
-    productDetailsContainer.innerHTML = "";
-    fetchproductdetails(productID);
-    filtercategory(category);
-}
+    function displayProductDetails(product) {
+        specificProductDetailsContainer.innerHTML = `
+            <img src="${product.image}" alt="${product.title}" width="500px">
+            <div class="product-description">
+                <h3 class="category">${product.category}</h3>
+                <h1>${product.title}</h1>
+                <p>${product.rating.rate}</p>
+                <h2 class="price">$${product.price}</h2>
+                <p class="description">${product.description}</p>
+                <div class="cart-buttons">
+                    <button>Add to cart</button>
+                    <button>Go to cart</button>
+                </div>
+            </div>
+        `;
+    }
 
+    function handleDetailsButtonClick(button) {
+        const productID = button.dataset.id;
+        const category = button.dataset.category;
 
+        // Find the selected product from allProducts
+        const selectedProduct = allProducts.find(product => product.id == productID);
+        
+        if (selectedProduct) {
+            displayProductDetails(selectedProduct);
+            displayCategoryProducts(allProducts.filter(product => product.category === category));
+
+            showSection('Specific-Details');
+        }
+    }
+
+    function filterProducts(category) {
+        if (category === "All") {
+            // Show all products
+            displayProducts(allProducts, homeProductContainer);
+            displayProducts(allProducts, productsContainer);
+        } else {
+            // Filter products by category
+            const filteredProducts = allProducts.filter(product => product.category === category);
+            displayProducts(filteredProducts, homeProductContainer);
+            displayProducts(filteredProducts, productsContainer);
+        }
+    }
+
+    function showSection(target) {
+        homeSection.style.display = 'none';
+        productsSection.style.display = 'none';
+        detailsSection.style.display = 'none';
+
+        if (target === 'Home') {
+            homeSection.style.display = 'block';
+        } else if (target === 'Products') {
+            productsSection.style.display = 'block';
+        } else if (target === 'Specific-Details') {
+            detailsSection.style.display = 'block';
+        }
+    }
 });
-

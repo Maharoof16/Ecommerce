@@ -12,32 +12,55 @@
     <header>
         <h2>Ecommerce</h2>
         <div class="nav-tags">
-            <a class="pagebuttons" data-target="Products" >Home</a>
-            <a class="pagebuttons" data-target="Products" >Products</a>
-            <a >About</a>
-            <a >Contact</a>
+            <a class="pagebuttons" data-target="Home">Home</a>
+            <a class="pagebuttons" data-target="Products">Products</a>
+            <a>About</a>
+            <a>Contact</a>
         </div>
         <div class="nav-icons">
-            <a ><span><i class="fa-solid fa-right-to-bracket"></i> Login</span></a>
+            <a><span><i class="fa-solid fa-right-to-bracket"></i> Login</span></a>
             <a><span><i class="fa-solid fa-user-plus"></i> Register</span></a>
             <a><span><i class="fa-solid fa-cart-shopping"></i> Cart (0)</span></a>
         </div>
     </header>
-
-    <div id="Products" class="page" data-display="block">
-        <div class="Category-Buttons">
-            <button data-category="All">All</button>
-            <button data-category="men's clothing">Men's Clothing</button>
-            <button data-category="women's clothing">Women's Clothing</button>
-            <button data-category="jewelery">Jewelery</button>
-            <button data-category="electronics">Electronics</button>
+    
+    <main>
+        <div id="Home" class="page">
+            <img src="./main.png.jpg" alt="Home Image">
+            <div>
+                <h1>Latest Products</h1>
+                <div class="Category-Buttons">
+                    <button data-category="All">All</button>
+                    <button data-category="men's clothing">Men's Clothing</button>
+                    <button data-category="women's clothing">Women's Clothing</button>
+                    <button data-category="jewelery">Jewelery</button>
+                    <button data-category="electronics">Electronics</button>
+                </div>
+                <div id="Home-Product-Container"></div>
+            </div>
         </div>
-        <div id="Product-Container" ></div>
-    </div>
-    <div id="Specific-Product-Details" class="page" data-display="flex"></div>
-    <div id="slideshow"></div>
+    
+        <div id="Products" class="page">
+            <h1>Latest Products</h1>
+            <div class="Category-Buttons">
+                <button data-category="All">All</button>
+                <button data-category="men's clothing">Men's Clothing</button>
+                <button data-category="women's clothing">Women's Clothing</button>
+                <button data-category="jewelery">Jewelery</button>
+                <button data-category="electronics">Electronics</button>
+            </div>
+            <div id="Products-Container"></div>
+        </div>
+    
+        <div id="Specific-Details" class="page">
+            <div id="Specific-Product-Details"></div>
+            <div id="slideshow"></div>
+        </div>
+    </main>
     
     
+    
+
     <script src="./app.js"></script>
 </body>
 </html>
