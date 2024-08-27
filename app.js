@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideshow = document.getElementById('slideshow');
     const specificProductDetailsContainer = document.getElementById('Specific-Product-Details');
     let allProducts = [];
-    const cart=[] || JSON.parse(localStorage.getItem('cart'));
+    const cart=JSON.parse(localStorage.getItem('cart')) || [];
     // Fetch data once
     fetch(apiURL)
         .then(response => response.json())
@@ -155,8 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 cart.push(Product);
             }
         }localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('Cart').innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`
+
+        updateCartCount();
+        
     }
+
+    function updateCartCount(){
+        document.getElementById('Cart').innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`;
+
+    }
+    document.getElementById('Cart').innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`;
 
     function filterProducts(category) {
         if (category === "All") {
@@ -184,6 +192,5 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsSection.style.display = 'block';
         }
     }
-
 
 });
