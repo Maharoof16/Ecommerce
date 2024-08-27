@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('Product-Container');
     const productDetailsContainer = document.getElementById('Specific-Product-Details');
     let allProducts=[];
+    const slideshow=document.getElementById('slideshow');
     
    
     fetch(apiURL)
@@ -12,20 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
             allProducts=data;
             displayproducts(allProducts);
             const categorybuttons= document.querySelectorAll('.Category-Buttons');
-            categorybuttons.forEach(product=>{
-                product.addEventListener('click',(e)=>{
+            categorybuttons.forEach(button=>{
+                button.addEventListener('click',(e)=>{
                     filterproducts(e.target.dataset.category)
                 })
             })
-            const Details=document.querySelectorAll('.details-btn');
-            Details.forEach(button=>{
-                button.addEventListener('click',(e)=>{
-                productDetailsContainer.innerHTML =""
-                const productID=(e.target.dataset.id);
-                console.log(productID)
-                fetchproductdetails(productID);
-                });
-            });
             const pagebuttons=document.querySelectorAll(".pagebuttons");
             console.log(pagebuttons)
             const sections=document.querySelectorAll(".page");
@@ -42,6 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
 
+            // Event delegation for dynamically added buttons
+            productContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('details-btn')) {
+                handleDetailsButtonClick(e.target);
+                }
+            });
+            
+            slideshow.addEventListener('click', (e) => {
+                if (e.target.classList.contains('details-btn')) {
+                    handleDetailsButtonClick(e.target);
+                }
+            });
         })
         .catch(error => {
             console.error('Error fetching product data:', error);
@@ -59,7 +63,7 @@ function createProductCard(product) {
             <p class="description">${product.description}</p>
             <h3 class="price">$${product.price}</h3>
             <button class="Addtocart-btn">Add to cart </button>
-            <button class="details-btn pagebuttons" data-target="Specific-Product-Details" data-id="${product.id}">Details</button>
+            <button class="details-btn pagebuttons" data-target="Specific-Product-Details" data-id="${product.id}" data-category="${product.category}">Details</button>
         </div>
         
     `;
@@ -68,7 +72,7 @@ function createProductCard(product) {
 
 
 function displayproducts(products){
-    productContainer.innerHTML='';
+    productContainer.innerHTML="";
     products.forEach(product=>{
         const productCard = createProductCard(product);
         productContainer.appendChild(productCard);
@@ -77,7 +81,6 @@ function displayproducts(products){
 }
 
 function fetchproductdetails(productId) {
-    
     fetch(`${apiURL}${productId}`)
         .then(response => response.json())
         .then(product => {
@@ -116,6 +119,46 @@ function filterproducts(category){
             displayproducts(filteredProducts); // Show filtered products
     }
 }
+
+function filtercategory(category){
+    const categoryproducts=allProducts.filter(product => product.category === category);
+    console.log(categoryproducts)
+    displaycategoryproducts(categoryproducts)
+}
+
+function displaycategoryproducts(products){
+    slideshow.innerHTML="";
+    products.forEach(product=>{
+        const sliderCard = createsliderCard(product);
+        console.log(sliderCard)
+        slideshow.appendChild(sliderCard);
+    })
+}
+
+function createsliderCard(product){
+    const categorycard=document.createElement('div');
+    categorycard.innerHTML=`
+        <img src="${product.image}" alt="${product.title}"  width="300px">
+        <div>
+            <h2>${product.title}</h2>
+            <p class="description">${product.description}</p>
+            <h3 class="price">$${product.price}</h3>
+            <button class="Addtocart-btn">Add to cart </button>
+            <button class="details-btn pagebuttons" data-target="Specific-Product-Details" data-id="${product.id}" data-category="${product.category}">Details</button>
+        </div>
+    
+    `;
+    return categorycard
+}
+
+function handleDetailsButtonClick(button) {
+    const productID = button.dataset.id;
+    const category = button.dataset.category;
+    productDetailsContainer.innerHTML = "";
+    fetchproductdetails(productID);
+    filtercategory(category);
+}
+
 
 });
 
