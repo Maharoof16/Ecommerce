@@ -123,23 +123,45 @@ main h1{
     display: flex;
 }
 
-#slideshow {
-    display: flex;
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.Slideshow-Container{
+    overflow: hidden;
     width: 100%;
-    justify-content: space-between;
+    position: relative;
+}
+.Slideshow-Container::before,.Slideshow-Container::after{
+    position: absolute;
+    top: 0;
+    width: 400px;
+    height: 100%;
+    content: "";
+    z-index: 2;
+}
+#slideshow{
+    white-space: nowrap;
+    animation: 35s slide infinite linear;
 }
 
-#slideshow img{
-    max-width: 100%;
-    height: 200px;
+.Slideshow-Container:hover #slideshow{
+    animation-play-state: paused;
 }
-
 .slider-card{
-    width: 300px;
-    height: 300px;
-    border: 1px solid black;
+    width: 400px;
+    display: inline-block;
+    margin: 0 50px;
 }
-
+.slider-card img{
+    width: 200px;
+}
 .slider-details h2{
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -147,27 +169,44 @@ main h1{
     overflow: hidden;
 }
 
-.GoToCart{
-    width: 100%;
+#GoToCart{
+    width: 90%;
+    margin: 100px auto;
+    display: flex;
+    gap: 20px;
 }
-
-.Cart-Container{
+#Cart-Container{
     width: 50%;
+    border: 1px solid black;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    gap: 50px;
+
 }
 .cart-Card{
-    width: 400px;
+    width: 100%;
     height: 200px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.page {
-    display: none;
-    padding: 10px;
+.cart-Card h3{
+    width: 300px;
 }
 
+#Checkout{
+    width: 30%;
+    height: 300px;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+#Checkout h3{
+}
 #Home, #Products, #Specific-Details,#GoToCart{
     display: none; /* Default hidden, managed by JavaScript */
 }
