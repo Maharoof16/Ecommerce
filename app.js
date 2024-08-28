@@ -77,7 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     handleAddToCart(e.target);
                 }
             });
-
+            
+            specificProductDetailsContainer.addEventListener('click', (e) => {
+                if(e.target.classList.contains('add-to-cart-btn')){
+                    handleAddToCart(e.target);
+                }else if(e.target.classList.contains('go-to-cart-btn')){
+                    showSection('GoToCart');
+                }
+            });
             // Initialize default view
             showSection('Home');
         })
@@ -174,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function displayProductDetails(product) {
         specificProductDetailsContainer.innerHTML = `
-            <img src="${product.image}" alt="${product.title}" width="500px">
+            <img src="${product.image}" alt="${product.title}">
             <div class="product-description">
                 <h3 class="category">${product.category}</h3>
                 <h1>${product.title}</h1>
@@ -183,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="description">${product.description}</p>
                 <div class="cart-buttons">
                     <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
-                    <button>Go to cart</button>
+                    <button class="go-to-cart-btn" data-id="${product.id}">Go to cart</button>
                 </div>
             </div>
         `;
