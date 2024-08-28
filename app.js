@@ -89,13 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.classList.add('product-card'); // Different class for product cards
         card.innerHTML = `
-            <img src="${product.image}" alt="${product.title}" width="300px">
+            <img src="${product.image}" alt="${product.title}">
             <div class="product-details">
                 <h2>${product.title}</h2>
                 <p class="description">${product.description}</p>
-                <h3 class="price">$${product.price}</h3>
-                <button class="add-to-cart-btn" data-id="${product.id}" >Add to cart</button>
+                <hr>
+                <p class="price">$${product.price}</p>
+                <hr>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" >Add to cart</button>
             </div>
         `;
         return card;
