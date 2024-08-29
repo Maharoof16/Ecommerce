@@ -7,31 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartSection=document.getElementById('GoToCart');
     const homeProductContainer = document.getElementById('Home-Product-Container');
     const productsContainer = document.getElementById('Products-Container');
-    const slideshowcontainer=document.querySelector('.Slideshow-Container');
     const slideshow = document.getElementById('slideshow');
     const specificProductDetailsContainer = document.getElementById('Specific-Product-Details');
     let allProducts = [];
     const cart=JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount=document.getElementById('Cart');
     const cartContainer=document.getElementById('Cart-Container');
     const emptyCart=document.getElementById('EmptyCart');
-    const checkout=document.getElementById('Checkout');
-    let totalQuantity;
-    totalQuantity=cart.reduce((sum,item)=>{
-        return sum + item.quantity;
-    },0);
-    document.getElementById('quantity').textContent=`Products (${totalQuantity})`;
+    const totalQuantityElement = document.getElementById('Quantity');
+    const totalPriceElement = document.getElementById('TotalPrice');
 
-   
-    
 
-    
     updateCartCount();
     displayCartProducts();
 
-    
-
-
-    // Fetch data once
+    //fetching API for products
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
@@ -53,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Event delegation for product containers
+            // Event delegation for homepage product containers
             homeProductContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
@@ -61,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     handleAddToCart(e.target);
                 }
             });
-
+            
+            // Event delegation for productspage product containers
             productsContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('details-btn')) {
                     handleDetailsButtonClick(e.target);
@@ -85,12 +76,51 @@ document.addEventListener('DOMContentLoaded', () => {
                     showSection('GoToCart');
                 }
             });
+
+            cartContainer.addEventListener('click',(e)=>{
+                if(e.target.classList.contains('Increment')){
+                    quantityhandler(e.target,'Increment');
+                }else if(e.target.classList.contains('Decrement')){
+                    console.log("ok")
+                    quantityhandler(e.target,'Decrement');
+                };
+            });
             // Initialize default view
             showSection('Home');
         })
         .catch(error => {
             console.error('Error fetching product data:', error);
         });
+
+
+    function quantityhandler(button,operation){
+        const productid=button.dataset.id;
+        const object=cart.find(product=> product.id==productid);
+        const Index=cart.findIndex(product=> product.id==productid);
+        if(operation=='Increment'){
+            object.quantity++;
+        }else if(operation=='Decrement'){
+            if(object.quantity>1){
+                object.quantity-=1;
+            }else{
+                cart.splice(Index, 1);
+            };
+        };
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCartProducts();
+        updateCartDetails();
+    }
+
+    function updateCartDetails() {
+        // Update cart quantity
+        const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+        totalQuantityElement.textContent = `Products(${totalQuantity})`;
+
+        // Update cart total price
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+        totalPriceElement.textContent = `Total: $${totalPrice}`;
+    }
+    
 
     function createProductCard(product) {
         const card = document.createElement('div');
@@ -123,14 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         return card;
     }
-
     function createCartCard(product){
         const cartItem=document.createElement('div');
         cartItem.classList.add('Cart-Card');
         cartItem.innerHTML=`
         <img src="${product.image}" alt="${product.title}" width="100px">
         <h3>${product.title}</h3>
-        <p>${product.quantity} x <b>$${product.price}</b></p>
+        <div id="quantitychanger">
+            <i class="fa-solid fa-plus Increment" data-id="${product.id}"></i>
+            <span>${product.quantity}</span>
+            <i class="fa-solid fa-minus Decrement" data-id="${product.id}"></i>
+            <p>${product.quantity} x <b>$${product.price}</b></p>
+        </div>
         `;
         return cartItem
     }
@@ -167,27 +201,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cart.length === 0){
             emptyCart.style.display='block';
             cartContainer.style.display='none';
-            checkout.style.display='none';
         }else{
             emptyCart.style.display='none';
             cartContainer.style.display='block';
-            checkout.style.display='block'
             cart.forEach(product=>{
                 const cartCard=createCartCard(product);
                 cartContainer.appendChild(cartCard);
             });
-        }
+        }updateCartDetails();
+        updateCartCount();
         
-    }
-    calculatingProductPrice()
-    function calculatingProductPrice(){
-        let productpricelist=[]
-        cart.forEach(product=>{
-            const productPrice=((product.price)*product.quantity).toFixed(2);
-            productpricelist.push(productPrice)
-        });const totalprice=productpricelist.reduce((sum,item)=>{
-            return sum + parseFloat(item) ;
-        },0);console.log(totalprice)
     }
     
     function displayProductDetails(product) {
@@ -217,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedProduct) {
             displayProductDetails(selectedProduct);
             displayCategoryProducts(allProducts.filter(product => product.category === category));
-
             showSection('Specific-Details');
         }
     }
@@ -240,13 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCartProducts();
         
     }
-    
     function updateCartCount(){
-        document.getElementById('Cart').innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`;
-        totalQuantity=cart.reduce((sum,item)=>{
-            return sum + item.quantity;
-        },0);
-        document.getElementById('quantity').textContent=`Products (${totalQuantity})`;
+        cartCount.innerHTML=`<i class="fa-solid fa-cart-shopping"></i> Cart (${cart.length})`;
 
     }
 
@@ -263,10 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
      
-    
-
-
-
     function showSection(target) {
         homeSection.style.display = 'none';
         productsSection.style.display = 'none';
