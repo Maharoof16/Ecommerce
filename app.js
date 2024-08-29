@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
    
     
 
-
+    
     updateCartCount();
     displayCartProducts();
 
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${product.image}" alt="${product.title}">
             <div class="product-description">
                 <h3 class="category">${product.category}</h3>
-                <h1>${product.title}</h1>
+                <p>${product.title}</p>
                 <p>${product.rating.rate}</p>
                 <h2 class="price">$${product.price}</h2>
                 <p class="description">${product.description}</p>
@@ -225,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cart.push(Product);
             }
         }localStorage.setItem('cart', JSON.stringify(cart));
-
         updateCartCount();
         displayCartProducts();
         
@@ -252,6 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
             displayProducts(filteredProducts, productsContainer);
         }
     }
+     
+    
+
+
 
     function showSection(target) {
         homeSection.style.display = 'none';
@@ -265,6 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
             productsSection.style.display = 'block';
         } else if (target === 'Specific-Details') {
             detailsSection.style.display = 'block';
+            window.scrollTo(0, 0);
+           
         }else if (target === 'GoToCart') {
             cartSection.style.display = 'flex';
         }

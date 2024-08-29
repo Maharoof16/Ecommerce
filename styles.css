@@ -29,6 +29,7 @@ a{
     text-decoration: none;
     color: black;
     cursor: pointer;
+    font-size: medium;
 }
 
 .nav-tags a{
@@ -41,10 +42,13 @@ a{
     border-radius: 5px;
     background-color: white;
     color: black;
-    padding: 8px;
-    font-size: medium;
+    padding: 5px;
+    
 }
 
+#Home{
+    width: 100%;
+}
 .cover {
     position: relative;
     color: white;
@@ -102,7 +106,8 @@ main h1{
     
 }
 #products{
-    margin: 80px;
+    width: 100%;
+    margin: 80px 0;
 }
 #Products-Container{
     width: 88%;
@@ -164,10 +169,18 @@ main h1{
     padding: 7px;
 }
 
+#Specific-Details{
+    width: 90%;
+    margin: 100px auto;
+}
 #Specific-Product-Details{
     display: flex;
+    gap: 100px;
 }
-
+.product-description{
+    width: 40%;
+    text-align: start;
+}
 
 @keyframes slide {
     from {
