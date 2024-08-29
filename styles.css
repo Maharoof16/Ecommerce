@@ -147,7 +147,7 @@ main h1{
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.description{
+.Product-Details .description{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -156,7 +156,7 @@ main h1{
     font-size: small;
 } 
 
-.price{
+.Product-Details .price{
     margin: 10px;
 }
 
@@ -170,17 +170,54 @@ main h1{
 }
 
 #Specific-Details{
-    width: 90%;
-    margin: 100px auto;
+    width: 100%;
+    margin: 100px 0;
+    
 }
 #Specific-Product-Details{
     display: flex;
-    gap: 100px;
+    justify-content: space-around;
+}
+#Specific-Product-Details img{
+    width: 450px;
+}
+#Specific-Product-Details .title{
+    font-size: 40px;
+    font-weight: lighter;
+    margin: 20px 0;
 }
 .product-description{
-    width: 40%;
+    width: 45%;
+    margin-top: 20px;
     text-align: start;
 }
+.product-description .rating{
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size:large;
+}
+
+.product-description .price{
+    font-size: xx-large;
+    margin-bottom: 20px;
+}
+
+.product-description .description{
+    font-size: large;
+    text-align: justify;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.product-description button{
+    border-radius: 5px;
+    width: max-content;
+    padding: 7px;
+    font-size: medium;
+}
+
+
+
 
 @keyframes slide {
     from {
@@ -193,24 +230,33 @@ main h1{
 
 .Slideshow-Container{
     overflow: hidden;
-    width: 100%;
+    width: 90%;
     position: relative;
+    margin: 0 auto;
 }
 .Slideshow-Container::before,.Slideshow-Container::after{
     position: absolute;
-    top: 0;
-    width: 400px;
+    width: 300px;
     height: 100%;
+    top: 0;
     content: "";
     z-index: 2;
 }
 #slideshow{
     white-space: nowrap;
-    animation: 15s slide infinite linear;
+    animation: 45s slide infinite linear;
 }
 
+.Slideshow-Container::before{
+    left: 0;
+    background: linear-gradient(to left,rgba(223, 44, 44, 0),white);
+}
+.Slideshow-Container::after{
+    right: 0;
+    background: linear-gradient(to right,rgba(223, 44, 44, 0),white);
+}
 .Slideshow-Container:hover #slideshow{
-    animation-play-state: paused;
+    animation-play-state: paused; 
 }
 .slider-card{
     width: 400px;

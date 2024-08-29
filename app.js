@@ -150,7 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
             slideshow.appendChild(sliderCard);
             
         });
-        
+        products.forEach(product => {
+            const sliderCard = createSliderCard(product);
+            slideshow.appendChild(sliderCard);
+            
+        });
+        products.forEach(product => {
+            const sliderCard = createSliderCard(product);
+            slideshow.appendChild(sliderCard);
+            
+        });
         
     }
     function displayCartProducts(){
@@ -158,9 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cart.length === 0){
             emptyCart.style.display='block';
             cartContainer.style.display='none';
+            checkout.style.display='none';
         }else{
             emptyCart.style.display='none';
             cartContainer.style.display='block';
+            checkout.style.display='block'
             cart.forEach(product=>{
                 const cartCard=createCartCard(product);
                 cartContainer.appendChild(cartCard);
@@ -183,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
         specificProductDetailsContainer.innerHTML = `
             <img src="${product.image}" alt="${product.title}">
             <div class="product-description">
-                <h3 class="category">${product.category}</h3>
-                <p>${product.title}</p>
-                <p>${product.rating.rate}</p>
-                <h2 class="price">$${product.price}</h2>
+                <h3 class="category">${product.category.toUpperCase()}</h3>
+                <p class="title" > ${product.title}</p>
+                <p class="rating" >${product.rating.rate} <i class="fa-solid fa-star"></i></p>
+                <p class="price">$${product.price}</p>
                 <p class="description">${product.description}</p>
                 <div class="cart-buttons">
                     <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
@@ -266,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             homeSection.style.display = 'block';
         } else if (target === 'Products') {
             productsSection.style.display = 'block';
+            window.scrollTo(0, 0);
         } else if (target === 'Specific-Details') {
             detailsSection.style.display = 'block';
             window.scrollTo(0, 0);
