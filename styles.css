@@ -1,3 +1,4 @@
+
 /* Basic reset */
 * {
     margin: 0;
@@ -280,8 +281,38 @@ main h1{
 }
 #GoToCart h1{
     text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid black;
 }
-
+#EmptyCart{
+    width: 85%;
+    margin: -20px auto 20px auto;
+    background-color: whitesmoke;
+    text-align: center;
+    
+}
+    
+#EmptyCartMesssage{
+    font-size: 40px;
+    font-weight: lighter;
+    padding: 50px 0 20px 0;
+}
+#EmptyCart button{
+    padding: 5px;
+    font-size: medium;
+    border-radius: 6px;
+    margin-bottom: 30px;
+}
+#Footer i{
+    color: red;
+}
+#footer{
+    width:100%;
+}
+#EmptyCartFooter{
+    text-align: center;
+    margin-top: 50px;
+}
 #NonEmptyCart{
     width: 100%;
     margin: 0 100px;
@@ -314,21 +345,59 @@ main h1{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 60px;
     align-items: center;
     padding-bottom:  30px;
     border-bottom: 1px solid black;
 }
 
 .Cart-Card h3{
-    width: 300px;
+    width: 250px;
+    text-align:start;
 }
 
+.Cart-Card i{
+    font-size: larger;
+    margin-bottom: 30px;
+}
+#quantityChanger{
+    text-align: center;
+}
+#quantityChanger span{
+    padding: 30px;
+}
 #OrderSummary{
     width: 25%;
+    height: max-content;
     border: 1px solid black;
 }
-
+#Quantity{
+    padding: 10px;
+}
+#OrderSummary h2{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+.Shipping{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+.TotalAmount{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;    
+}
+#OrderSummary button{
+    width: 90%;
+    margin: 15px;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: medium;
+}
 #Home, #Products, #Specific-Details,#GoToCart{
     display: none; /* Default hidden, managed by JavaScript */
 }

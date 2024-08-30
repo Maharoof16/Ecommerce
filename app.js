@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nonEmptyCart=document.getElementById('NonEmptyCart');
     const totalQuantityElement = document.getElementById('Quantity');
     const totalPriceElement = document.getElementById('TotalPrice');
+    const EmptyCartFooter=document.getElementById('EmptyCartFooter');
 
 
     updateCartCount();
@@ -86,8 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     quantityhandler(e.target,'Decrement');
                 };
             });
+             
+            cartSection.addEventListener('click',(e)=>{
+                if(e.target.classList.contains('Back-To-Home')){
+                    showSection('Home');
+                }
+            })
+
             // Initialize default view
             showSection('Home');
+
         })
         .catch(error => {
             console.error('Error fetching product data:', error);
@@ -119,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update cart total price
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-        totalPriceElement.textContent = `Total: $${totalPrice}`;
+        totalPriceElement.textContent = `$${totalPrice}`;
     }
     
 
@@ -160,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItem.innerHTML=`
         <img src="${product.image}" alt="${product.title}" width="100px" height="100px">
         <h3>${product.title}</h3>
-        <div id="quantitychanger">
+        <div id=quantityChanger>
             <i class="fa-solid fa-plus Increment" data-id="${product.id}"></i>
             <span>${product.quantity}</span>
             <i class="fa-solid fa-minus Decrement" data-id="${product.id}"></i>
@@ -201,9 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
         cartContainer.innerHTML= '';
         if (cart.length === 0){
             emptyCart.style.display='block';
+            EmptyCartFooter.style.display='block';
             nonEmptyCart.style.display='none';
         }else{
             emptyCart.style.display='none';
+            EmptyCartFooter.style.display='none';
             nonEmptyCart.style.display='flex';
             cart.forEach(product=>{
                 const cartCard=createCartCard(product);
@@ -298,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
            
         }else if (target === 'GoToCart') {
             cartSection.style.display = 'block';
+            window.scrollTo(0, 0);
         }
     }
 

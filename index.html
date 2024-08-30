@@ -67,7 +67,11 @@
         <div id="GoToCart" class="page">
             <h1>Cart</h1>
             <div id="EmptyCart">
-                <h2>Your Cart is Empty</h2>
+                <p id="EmptyCartMesssage">Your Cart is Empty</p>
+                <button class="Back-To-Home"><i class="fa-solid fa-arrow-left"></i> Continue Shopping</button>
+            </div>
+            <div id="EmptyCartFooter">
+                <p id="Footer">Made with <i class="fa-solid fa-heart"></i> by MaharoofKP</p>
             </div>
             <div id="NonEmptyCart">
                 <div id="CartDetails">
@@ -77,9 +81,17 @@
                 </div>
                 <div id="OrderSummary">
                     <h2>Order Summary</h2>
+                    <hr>
                     <p id="Quantity">Products(0)</p>
-                    <p>Shipping</p>
-                    <p id="TotalPrice"></p>
+                    <div class="Shipping">
+                        <p>Shipping</p>
+                        <p>$30</p>
+                    </div>
+                    <div class="TotalAmount">
+                        <h4>Total amount</h4>
+                        <p id="TotalPrice"></p>
+                    </div>
+                    <button>Go to checkout</button>
                 </div>
             </div>
         </div>
