@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartCount=document.getElementById('Cart');
     const cartContainer=document.getElementById('Cart-Container');
     const emptyCart=document.getElementById('EmptyCart');
+    const nonEmptyCart=document.getElementById('NonEmptyCart');
     const totalQuantityElement = document.getElementById('Quantity');
     const totalPriceElement = document.getElementById('TotalPrice');
 
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartItem=document.createElement('div');
         cartItem.classList.add('Cart-Card');
         cartItem.innerHTML=`
-        <img src="${product.image}" alt="${product.title}" width="100px">
+        <img src="${product.image}" alt="${product.title}" width="100px" height="100px">
         <h3>${product.title}</h3>
         <div id="quantitychanger">
             <i class="fa-solid fa-plus Increment" data-id="${product.id}"></i>
@@ -200,10 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cartContainer.innerHTML= '';
         if (cart.length === 0){
             emptyCart.style.display='block';
-            cartContainer.style.display='none';
+            nonEmptyCart.style.display='none';
         }else{
             emptyCart.style.display='none';
-            cartContainer.style.display='block';
+            nonEmptyCart.style.display='flex';
             cart.forEach(product=>{
                 const cartCard=createCartCard(product);
                 cartContainer.appendChild(cartCard);
@@ -296,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo(0, 0);
            
         }else if (target === 'GoToCart') {
-            cartSection.style.display = 'flex';
+            cartSection.style.display = 'block';
         }
     }
 
