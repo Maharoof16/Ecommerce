@@ -31,9 +31,8 @@
                 <h2>New Season Arrivals</h2>
                 <p>This is a wider card with supporting text below as natural lead-in to additional content. This content is little bit longer.</p>
             </div>
-            
             <div>
-                <h1>Latest Products</h1>
+                <p id="LatestProducts">Latest Products</p>
                 <div class="Category-Buttons">
                     <button data-category="All">All</button>
                     <button data-category="men's clothing">Men's Clothing</button>
@@ -43,10 +42,13 @@
                 </div>
                 <div id="Home-Product-Container"></div>
             </div>
+            <div id="HomeFooter">
+                <p id="Footer">Made with <i class="fa-solid fa-heart"></i> by MaharoofKP</p>
+            </div>
         </div>
     
         <div id="Products" class="page">
-            <h1>Latest Products</h1>
+            <p id="LatestProducts">Latest Products</p>
             <div class="Category-Buttons">
                 <button data-category="All">All</button>
                 <button data-category="men's clothing">Men's Clothing</button>
@@ -55,12 +57,19 @@
                 <button data-category="electronics">Electronics</button>
             </div>
             <div id="Products-Container"></div>
+            <div id="ProductsFooter">
+                <p id="Footer">Made with <i class="fa-solid fa-heart"></i> by MaharoofKP</p>
+            </div>
         </div>
     
         <div id="Specific-Details" class="page">
             <div id="Specific-Product-Details"></div>
+            <h2 id="LikeProducts">You may also Like</h2>
             <div class="Slideshow-Container">
                 <div id="slideshow"></div>
+            </div>
+            <div id="SpecificDetailsFooter">
+                <p id="Footer">Made with <i class="fa-solid fa-heart"></i> by MaharoofKP</p>
             </div>
         </div>
 
@@ -76,23 +85,28 @@
             <div id="NonEmptyCart">
                 <div id="CartDetails">
                     <h2>Item List</h2>
-                    <hr>
                     <div id="Cart-Container"></div>
                 </div>
                 <div id="OrderSummary">
                     <h2>Order Summary</h2>
                     <hr>
-                    <p id="Quantity">Products(0)</p>
+                    <div class="QuantityPrice">
+                        <p id="Quantity">Products(0)</p>
+                        <p id="TotalPrice"></p>
+                    </div>
                     <div class="Shipping">
                         <p>Shipping</p>
                         <p>$30</p>
                     </div>
                     <div class="TotalAmount">
                         <h4>Total amount</h4>
-                        <p id="TotalPrice"></p>
+                        <p id="FinalAmount"></p>
                     </div>
                     <button>Go to checkout</button>
                 </div>
+            </div>
+            <div id="NonEmptyCartFooter">
+                <p id="Footer">Made with <i class="fa-solid fa-heart"></i> by MaharoofKP</p>
             </div>
         </div>
         

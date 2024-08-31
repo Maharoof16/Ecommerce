@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const nonEmptyCart=document.getElementById('NonEmptyCart');
     const totalQuantityElement = document.getElementById('Quantity');
     const totalPriceElement = document.getElementById('TotalPrice');
+    const finalAmountElement=document.getElementById('FinalAmount');
     const EmptyCartFooter=document.getElementById('EmptyCartFooter');
+    const nonEmptyCartFooter=document.getElementById('NonEmptyCartFooter');
+    console.log(nonEmptyCartFooter);
 
 
     updateCartCount();
@@ -122,13 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCartDetails() {
-        // Update cart quantity
         const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
         totalQuantityElement.textContent = `Products(${totalQuantity})`;
 
-        // Update cart total price
-        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(0);
         totalPriceElement.textContent = `$${totalPrice}`;
+
+        const FinalPrice=Number(totalPrice)+30;
+        finalAmountElement.textContent=`$${FinalPrice}`;
     }
     
 
@@ -144,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="price">$${product.price}</p>
                 <hr>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
-                <button class="add-to-cart-btn" data-id="${product.id}" >Add to cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" >Add to Cart</button>
             </div>
         `;
         return card;
@@ -157,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${product.image}" alt="${product.title}" width="300px">
             <div class="slider-details">
                 <h2>${product.title}</h2>
-                <button class="add-to-cart-btn" data-id="${product.id}" > Add to cart</button>
                 <button class="details-btn" data-id="${product.id}" data-category="${product.category}">Details</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" > Add to Cart</button>
             </div>
         `;
         return card;
@@ -168,11 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItem.classList.add('Cart-Card');
         cartItem.innerHTML=`
         <img src="${product.image}" alt="${product.title}" width="100px" height="100px">
-        <h3>${product.title}</h3>
+        <h4>${product.title}</h4>
         <div id=quantityChanger>
-            <i class="fa-solid fa-plus Increment" data-id="${product.id}"></i>
-            <span>${product.quantity}</span>
             <i class="fa-solid fa-minus Decrement" data-id="${product.id}"></i>
+            <span>${product.quantity}</span>
+            <i class="fa-solid fa-plus Increment" data-id="${product.id}"></i>
             <p>${product.quantity} x <b>$${product.price}</b></p>
         </div>
         `;
@@ -199,23 +203,20 @@ document.addEventListener('DOMContentLoaded', () => {
             slideshow.appendChild(sliderCard);
             
         });
-        products.forEach(product => {
-            const sliderCard = createSliderCard(product);
-            slideshow.appendChild(sliderCard);
-            
-        });
-        
     }
+
     function displayCartProducts(){
         cartContainer.innerHTML= '';
         if (cart.length === 0){
             emptyCart.style.display='block';
             EmptyCartFooter.style.display='block';
             nonEmptyCart.style.display='none';
+            nonEmptyCartFooter.style.display='none';
         }else{
             emptyCart.style.display='none';
             EmptyCartFooter.style.display='none';
             nonEmptyCart.style.display='flex';
+            nonEmptyCartFooter.style.display='block';
             cart.forEach(product=>{
                 const cartCard=createCartCard(product);
                 cartContainer.appendChild(cartCard);
@@ -235,8 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="price">$${product.price}</p>
                 <p class="description">${product.description}</p>
                 <div class="cart-buttons">
-                    <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
-                    <button class="go-to-cart-btn" data-id="${product.id}">Go to cart</button>
+                    <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                    <button class="go-to-cart-btn" data-id="${product.id}">Go to Cart</button>
                 </div>
             </div>
         `;
