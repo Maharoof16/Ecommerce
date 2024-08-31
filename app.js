@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalAmountElement=document.getElementById('FinalAmount');
     const EmptyCartFooter=document.getElementById('EmptyCartFooter');
     const nonEmptyCartFooter=document.getElementById('NonEmptyCartFooter');
-    console.log(nonEmptyCartFooter);
 
 
     updateCartCount();
@@ -86,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(e.target.classList.contains('Increment')){
                     quantityhandler(e.target,'Increment');
                 }else if(e.target.classList.contains('Decrement')){
-                    console.log("ok")
                     quantityhandler(e.target,'Decrement');
                 };
             });
@@ -246,8 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleDetailsButtonClick(button) {
         const productID = button.dataset.id;
         const category = button.dataset.category;
-
-        // Find the selected product from allProducts
         const selectedProduct = allProducts.find(product => product.id == productID);
         
         if (selectedProduct) {
@@ -282,11 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function filterProducts(category) {
         if (category === "All") {
-            // Show all products
             displayProducts(allProducts, homeProductContainer);
             displayProducts(allProducts, productsContainer);
         } else {
-            // Filter products by category
             const filteredProducts = allProducts.filter(product => product.category === category);
             displayProducts(filteredProducts, homeProductContainer);
             displayProducts(filteredProducts, productsContainer);
